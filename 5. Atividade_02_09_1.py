@@ -11,7 +11,13 @@ class Endereco:
         self.cidade = cidade
 
     def __str__(self) -> str:
-        return f"\nLogradouro: {self.logradouro} \nNúmero: {self.numero} \nComplemento: {self.complemento} \nCEP: {self.cep \nCidade: {self.cidade}}"
+        return (f"\nENDEREÇO"
+                f"\nLogradouro: {self.logradouro}" 
+                f"\nNúmero: {self.numero}"
+                f"\nComplemento: {self.complemento}"
+                f"\nCEP: {self.cep}"
+                f"\nCidade: {self.cidade}"
+                    )
 
 class Funcionario(ABC):
     # Construtor
@@ -25,25 +31,40 @@ class Funcionario(ABC):
     def salario_final(self) -> float:
         pass
 
+    def __str__(self) -> str:
+        return (f"\nENDEREÇO"
+                f"\nNome: {self.nome}" 
+                f"\nTelefone: {self.telefone}"
+                f"\nE-mail: {self.email}"
+                f"\nEndereço: {self.endereco}"
+                    )
+
 class Engenheiro(Funcionario):
-    def __init__(self, nome: str, telefone: str, email: str, endereco: Endereco, crea: str) -> None:
+    def __init__(self, nome: str, telefone: str, email: str, crea: str, endereco: Endereco) -> None:
         super().__init__(nome, telefone, email, endereco)
         self.crea = crea
 
     def salario_final(self) -> float:
-        BONIFICACAO = 1.1
-        salario_final = self.salario
+        salario_final = 1000
         return salario_final
     
+      
 class Medico(Funcionario):
-    def __init__(self, nome: str, telefone: str, email: str, endereco: Endereco, crm: str) -> None:
+    def __init__(self, nome: str, telefone: str, email: str, crm: str, endereco: Endereco) -> None:
         super().__init__(nome, telefone, email, endereco)
         self.crm = crm
 
     def salario_final(self) -> float:
-        salario_final = self.salario
+        salario_final = 1000
         return salario_final
 
-engenheiro1 = Engenheiro("")
-print(f"Nome: {gerente1.nome}")
-print(f"Salário: {gerente1.calcular_salario()}")
+# Instanciando classes
+engenheiro1 = Engenheiro("Jorge", "71 9999-9999", "jorge@provedor.com", "1234",
+                         Endereco("Rua A", 123, "casa", "40.000-000", "Salvador"))
+print("\n=== DADOS DO ENGENHEIRO ===")
+print(engenheiro1)
+
+medico1 = Medico("Jorge", "71 9999-9999", "jorge@provedor.com", "1234",
+                         Endereco("Rua A", 123, "casa", "40.000-000", "Salvador"))
+print("\n=== DADOS DO MEDICO ===")
+print(medico1)
