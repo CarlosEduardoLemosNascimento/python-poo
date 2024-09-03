@@ -32,8 +32,7 @@ class Funcionario(ABC):
         pass
 
     def __str__(self) -> str:
-        return (f"\nENDEREÇO"
-                f"\nNome: {self.nome}" 
+        return (f"\nNome: {self.nome}" 
                 f"\nTelefone: {self.telefone}"
                 f"\nE-mail: {self.email}"
                 f"\nEndereço: {self.endereco}"
