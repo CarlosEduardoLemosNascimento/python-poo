@@ -9,57 +9,60 @@ class Endereco:
         self.cidade = cidade
 
     def __str__(self) -> str:
-        return (f"\nENDEREÇO"
-                f"\nLogradouro: {self.logradouro}" 
+        return (f"\nLogradouro: {self.logradouro}" 
                 f"\nNúmero: {self.numero}"
                 f"\nCidade: {self.cidade}"
                     )
 
-class Funcionario(ABC):
+class Funcionario:
     # Construtor
-    def __init__(self, nome: str, email: str, salario: float, endereco: Endereco) -> None:
+    def __init__(self, nome: str, email: str, endereco: Endereco) -> None:
         self.nome = nome
         self.email = email
-        self.salario = salario
         self.endereco = endereco
 
-    @abstractmethod
-    def salario_final(self) -> float:
+    def calcular_salario() -> float:
         pass
 
+    def salario (self) -> float:
+        try:
+            self.__validar_salario()
+        except SalarioNegativoError as error:
+            return f"Error: {error}"
+        
+    def __validar_salario(salario_final):
+        if salario_final < 0:
+           raise SalarioNegativoError(f"Valor inválido")
+    
     def __str__(self) -> str:
         return (f"\nNome: {self.nome}" 
-                f"\nTelefone: {self.telefone}"
                 f"\nE-mail: {self.email}"
                 f"\nEndereço: {self.endereco}"
                     )
 
-class Engenheiro(Funcionario):
-    def __init__(self, nome: str, email: str, crea: str, endereco: Endereco) -> None:
-        super().__init__(nome, telefone, email, endereco)
-        self.crea = crea
+class Motoboy(Funcionario):
+    def __init__(self, nome: str, email: str, cnh: str, endereco: Endereco) -> None:
+        super().__init__(nome, email, endereco)
+        self.cnh = cnh
 
-    def salario_final(self) -> float:
-        salario_final = 1000
-        return salario_final
-    
-      
-class Medico(Funcionario):
-    def __init__(self, nome: str, telefone: str, email: str, crm: str, endereco: Endereco) -> None:
-        super().__init__(nome, telefone, email, endereco)
-        self.crm = crm
-
-    def salario_final(self) -> float:
-        salario_final = 1000
-        return salario_final
+           
+class Gerente(Funcionario):
+    def __init__(self, nome: str, email: str, endereco: Endereco) -> None:
+        super().__init__(nome, email, endereco)
+        
+    def salario(self) -> float:
+        try:
+            self.__validar_salario()
+        except SalarioNegativoError as error:
+            return f"Error: {error}"
+        
+    def __validar_salario(salario_final):
+        if salario_final <0:
+            raise SalarioNegativoError(f"Valor inválido")
 
 # Instanciando classes
-engenheiro1 = Engenheiro("Jorge", "71 9999-9999", "jorge@provedor.com", "1234",
-                         Endereco("Rua A", 123, "casa", "40.000-000", "Salvador"))
-print("\n=== DADOS DO ENGENHEIRO ===")
-print(engenheiro1)
+gerente1 = Gerente("Jorge", "jorge@provedor.com",
+                         Endereco("Rua A", "123", "Salvador"))
+print("\n=== DADOS DO GERENTE ===")
+print(gerente1)
 
-medico1 = Medico("Jorge", "71 9999-9999", "jorge@provedor.com", "1234",
-                         Endereco("Rua A", 123, "casa", "40.000-000", "Salvador"))
-print("\n=== DADOS DO MEDICO ===")
-print(medico1)
